@@ -1,9 +1,14 @@
 package com.apidemos.start;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -41,6 +46,14 @@ public class MobileDriverStart {
 		String actualTitle = alertTitleElement.getText();
 		String expectedTitle = "Text Entry Dialog";
 		
+		try {
+			FileUtils.copyFile(driver.getScreenshotAs(OutputType.FILE), new File("screenshot.png"));
+		} catch (WebDriverException | IOException e) {
+			e.printStackTrace();
+		}
+		
 		Assert.assertEquals(actualTitle, expectedTitle);
 	}
+	
+//	ApiDemosApp.openMainPage().selectAppTab().then().selectAlertDialogsTab();
 }
